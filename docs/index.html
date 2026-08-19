@@ -98,7 +98,7 @@ const DATA = {
       description: "Universities and faculties set the evaluation criteria for hiring, promotion, and tenure. They house Recognition & Rewards committees and negotiate with libraries about budgets.",
       examples: ["Universities", "Faculties", "R&R committees", "Hiring committees", "University boards"],
       obstacle: "Evaluation reform is underway in the Netherlands but unevenly implemented. Many committees still default to journal prestige metrics even when policy nominally supports broader assessment. Institutional inertia is the core issue.",
-      change_efforts: "The Dutch Recognition & Rewards programme is one of the most advanced in Europe, with many universities formally committing to broader evaluation criteria. Some institutions have hired Open Science coordinators and R&R support staff specifically to drive reform.",
+      change_efforts: "The Dutch Recognition & Rewards programme is one of the most advanced in Europe, with many universities formally committing to broader evaluation criteria. Some institutions have hired Open Science coordinators and R&R support staff specifically to drive reform. In 2026 the Vision on Publication Culture was approved by the UNL board and the Dutch universities plan to implement it.",
       subnodes: [
         { name: "Universities & faculties", description: "Set strategic priorities and allocate budgets. Their leadership determines how seriously R&R reform is taken in practice.", examples: ["University boards", "Faculty deans", "Department heads"] },
         { name: "Evaluation committees", description: "Make concrete hiring and promotion decisions. Where policy meets practice — and where prestige metrics often reassert themselves.", examples: ["R&R committees", "Hiring committees", "Tenure review boards"] },
@@ -119,33 +119,33 @@ const DATA = {
     },
     publishers: {
       label: "Publishers & Journals", color: "#f2cc8f",
-      description: "Commercial publishers provide prestige, indexing, and distribution but extract enormous costs. Not-for-profit and Diamond OA journals provide similar services at lower or no cost, but often lack the prestige signals researchers need for career advancement.",
-      examples: ["Elsevier", "Springer Nature", "Wiley", "Diamond OA journals", "Society journals"],
+      description: "Commercial publishers provide prestige, indexing, and distribution of scholarly papers but extract enormous costs. Not-for-profit and Diamond OA journals provide similar services at lower or no cost, but often lack the prestige signals researchers need for career advancement.",
+      examples: ["Elsevier", "Springer Nature", "SciPost", "Netherlands University Presses", "openjournals.nl"],
       obstacle: "The prestige economy is self-reinforcing. Established journals have impact factors, indexing, and name recognition that DOA journals take years to build, creating a chicken-and-egg problem for new entrants.",
       change_efforts: "Some journal editors are flipping their journals from commercial to Diamond OA. Initiatives like Peer Community In offer overlay reviewing that decouples peer review from commercial publishing. New DOA journals demonstrate that high-quality publishing is possible without commercial infrastructure.",
       subnodes: [
         { name: "Commercial publishers", description: "Large for-profit companies dominating academic publishing. Provide infrastructure and prestige but extract profits often exceeding 30%.", examples: ["Elsevier", "Springer Nature", "Wiley", "Taylor & Francis"] },
-        { name: "Not-for-profit publishers", description: "Mission-driven organizations publishing without extracting shareholder profit. Often linked to academic societies.", examples: ["University presses", "PLOS", "eLife", "Society-owned publishers"] },
-        { name: "Academic-led journals", description: "Journals where editorial control and operations are led by active researchers. Includes many Diamond OA journals.", examples: ["Diamond OA journals", "Futures Reframed", "Peer Community In"] }
+        { name: "APC-based OA publishers", description: "Not-for-profit or mission-driven organizations publishing without charging subscription costs to readers, but which charge article processing fees (APCs) to authors or their institutions.", examples: ["PLOS, Frontiers, MDPI, some society journals"] },
+        { name: "Diamond OA publishers", description: "Sustained through institutional support, library funding, volunteer labor, or infrastructure grants. They demonstrate that publishing models are possible without extracting money from research or institution budgets.", examples: ["Futures Reframed", "SciPost", "Netherlands University Presses"] }
       ]
     },
     funders: {
       label: "Funders", color: "#b07dd6",
       description: "Research funders set open access mandates, fund research and sometimes publishing infrastructure, and influence what institutions value. They are the most powerful policy lever in the system.",
-      examples: ["NWO", "Horizon Europe", "KNAW", "Plan S / cOAlition S", "Ministry of Education"],
+      examples: ["NWO", "European Commission", "Funders under cOAlition S", "Ministry of Education"],
       obstacle: "Current mandates require open access but don't distinguish between APC-based gold OA and Diamond OA. Funder money often flows to commercial publishers via APCs rather than supporting sustainable alternatives.",
       change_efforts: "NWO funded the Horizon Diamond conference, signaling interest in DOA. Plan S / cOAlition S has created momentum for OA mandates across Europe. Some funders are beginning to explore earmarked support for DOA infrastructure.",
       subnodes: [
-        { name: "National funders", description: "Fund research at the national level and set OA policies. Their mandate design directly shapes whether money flows to commercial or sustainable routes.", examples: ["NWO", "ZonMw"] },
-        { name: "EU / international funders", description: "Set cross-border OA policy. Their requirements cascade into national policy.", examples: ["Horizon Europe", "cOAlition S", "ERC", "Wellcome Trust"] },
-        { name: "Government bodies", description: "Shape the broader regulatory and funding environment for research and publishing.", examples: ["Ministry of Education", "EU policy bodies", "Science councils"] }
+        { name: "National funders", description: "Fund research at the national level and set OA policies. Their mandate design directly shapes whether money flows to commercial or sustainable routes.", examples: ["NWO", "ZonMw", "openscience.nl"] },
+        { name: "EU / international funders", description: "Set cross-border OA policy. Their requirements cascade into national policy. Operate through programmes like Horizon Europe and policy frameworks like Plan S.", examples: ["European Commission", "ERC", "Wellcome Trust", "Gates Foundation"] },
+        { name: "Government & policy bodies", description: "Shape the broader regulatory and funding environment for research and publishing.", examples: ["Ministry of Education", "EU policy bodies", "Science councils"] }
       ]
     },
     infrastructure: {
       label: "Publishing Infrastructure", color: "#6bbf8a",
       description: "The technical and organizational backbone — indexing, identifiers, metadata, repository networks, and publishing platforms. Every other stakeholder depends on this, but it's often invisible, underfunded, and precarious.",
       examples: ["DOAJ", "Crossref", "OpenAIRE", "SHERPA/RoMEO", "openjournals.nl", "OJS"],
-      obstacle: "Chronic underfunding and dependence on grants or volunteer labor. Commercial publishers are increasingly building proprietary alternatives (e.g. Scopus vs. open indexing), threatening to fragment the ecosystem.",
+      obstacle: "Chronic underfunding and dependence on grants or volunteer labor. Commercial publishers have proprietary alternatives (e.g. Scopus vs. openAlex), threatening to fragment the ecosystem.",
       change_efforts: "OpenAIRE and open-source platforms like OJS demonstrate community-owned infrastructure is viable. The Invest in Open Infrastructure (IOI) initiative advocates for sustainable funding. In the Netherlands, openjournals.nl provides DOA hosting through libraries.",
       subnodes: [
         { name: "Indexing & discovery", description: "Services that make research findable and provide the metrics used for evaluation. Control over indexing means control over visibility and prestige.", examples: ["DOAJ", "Scopus", "Web of Science", "OpenAlex"] },
@@ -156,25 +156,25 @@ const DATA = {
     }
   },
   edges: [
-    { from: "researchers", to: "publishers", description: "Provide manuscripts, peer review labor, and editorial work — almost entirely uncompensated. This is the content engine of the entire system.", magnitude: "high" },
-    { from: "researchers", to: "institutions", description: "Produce publications, teaching, and grant income that institutions use for rankings and reputation.", magnitude: "high" },
-    { from: "researchers", to: "funders", description: "Apply for grants and comply (or don't) with funder mandates including OA requirements.", magnitude: "medium" },
-    { from: "institutions", to: "researchers", description: "Set evaluation criteria for hiring, promotion, and tenure. The single most powerful lever over researcher behavior.", magnitude: "high" },
-    { from: "institutions", to: "libraries", description: "Allocate budgets and set priorities for what libraries negotiate and provide.", magnitude: "medium" },
-    { from: "libraries", to: "publishers", description: "Pay subscriptions and APC costs through transformative agreements. The largest financial transfer in the system — tens of millions annually in the Netherlands alone.", magnitude: "very high" },
-    { from: "libraries", to: "researchers", description: "Provide access to literature, maintain repositories, offer publishing platforms, and advise on OA compliance. Underused due to low visibility.", magnitude: "medium" },
-    { from: "libraries", to: "infrastructure", description: "Host and maintain publishing platforms and repositories. Libraries are often the institutional home for open infrastructure.", magnitude: "medium" },
-    { from: "publishers", to: "researchers", description: "Provide dissemination, prestige signals (impact factors, journal reputation), and indexing essential for career advancement.", magnitude: "high" },
-    { from: "publishers", to: "institutions", description: "Provide metrics and brand recognition used in evaluations. Also sell data services (SciVal, Pure) back to institutions.", magnitude: "medium" },
-    { from: "publishers", to: "libraries", description: "Negotiate subscription and transformative agreement contracts. Hold significant leverage due to essential content and lack of substitutes.", magnitude: "high" },
-    { from: "publishers", to: "infrastructure", description: "Depend on and contribute to indexing and metadata systems. Commercial publishers also build proprietary alternatives.", magnitude: "medium" },
-    { from: "funders", to: "researchers", description: "Provide grant funding and set OA mandates as conditions. Currently don't distinguish between APC-based and Diamond OA.", magnitude: "high" },
-    { from: "funders", to: "libraries", description: "Fund infrastructure development and publishing platforms. Smaller than library→publisher flow but strategically important.", magnitude: "medium" },
-    { from: "funders", to: "institutions", description: "Shape institutional priorities through funding criteria. When funders signal open science matters, institutions eventually adapt — but with significant lag.", magnitude: "medium" },
-    { from: "funders", to: "infrastructure", description: "Fund infrastructure projects, often through grants. Primary funding mechanism for open infrastructure, but project-based and precarious.", magnitude: "medium" },
-    { from: "infrastructure", to: "publishers", description: "Provide indexing, identifiers, metadata standards, and publishing platforms that publishers depend on to operate.", magnitude: "high" },
-    { from: "infrastructure", to: "researchers", description: "Provide discoverability, persistent identifiers (ORCID, DOIs), and repository access.", magnitude: "medium" },
-    { from: "infrastructure", to: "libraries", description: "Provide the technical systems that libraries use for repositories, OA monitoring, and compliance checking.", magnitude: "medium" }
+    { from: "researchers", to: "publishers", description: "<b>Researchers</b> provide manuscripts, peer review labor, and editorial work to <b>Publishers & Journals</b> — almost entirely uncompensated. This is the content engine of the entire system.", magnitude: "high" },
+    { from: "researchers", to: "institutions", description: "<b>Researchers</b> produce publications, teaching, and grant income that <b>Research Institutions</b> use for rankings and reputation.", magnitude: "high" },
+    { from: "researchers", to: "funders", description: "<b>Researchers</b> apply for grants from <b>Funders</b> and comply (or don't) with their mandates, including OA requirements.", magnitude: "medium" },
+    { from: "institutions", to: "researchers", description: "<b>Research Institutions</b> set evaluation criteria for hiring, promotion, and tenure of <b>Researchers</b>. The single most powerful lever over researcher behavior.", magnitude: "high" },
+    { from: "institutions", to: "libraries", description: "<b>Research Institutions</b> allocate budgets and set priorities for what <b>Libraries</b> negotiate and provide.", magnitude: "medium" },
+    { from: "libraries", to: "publishers", description: "<b>Libraries</b> pay subscriptions and APC costs to <b>Publishers & Journals</b> through transformative agreements. The largest financial transfer in the system — tens of millions annually in the Netherlands alone.", magnitude: "very high" },
+    { from: "libraries", to: "researchers", description: "<b>Libraries</b> provide <b>Researchers</b> with access to literature, maintain repositories, offer publishing platforms, and advise on OA compliance. Underused due to low visibility.", magnitude: "medium" },
+    { from: "libraries", to: "infrastructure", description: "<b>Libraries</b> host and maintain <b>Publishing Infrastructure</b> such as publishing platforms and repositories. Libraries are often the institutional home for open infrastructure.", magnitude: "medium" },
+    { from: "publishers", to: "researchers", description: "<b>Publishers & Journals</b> provide <b>Researchers</b> with dissemination, prestige signals (impact factors, journal reputation), and indexing essential for career advancement.", magnitude: "high" },
+    { from: "publishers", to: "institutions", description: "<b>Publishers & Journals</b> provide <b>Research Institutions</b> with metrics and brand recognition used in evaluations. They also sell data services (SciVal, Pure) back to institutions.", magnitude: "medium" },
+    { from: "publishers", to: "libraries", description: "<b>Publishers & Journals</b> offer subscriptions to scholarly content and additional services to <b>Libraries</b>, such as monitoring systems (e.g. Elsevier’s PURE) and proprietary metrics (e.g Scopus/CiteScore). The ‘Big 5’ publishers form an oligopoly over most of the scholarly content read by academics, giving them significant leverage over prices.", magnitude: "high" },
+    { from: "publishers", to: "infrastructure", description: "<b>Publishers & Journals</b> depend on and contribute to <b>Publishing Infrastructure</b> for indexing and metadata. Commercial publishers also build proprietary alternatives that compete with open ones.", magnitude: "medium" },
+    { from: "funders", to: "researchers", description: "<b>Funders</b> provide <b>Researchers</b> with grant funding and set OA mandates as conditions. These currently don't distinguish between APC-based and Diamond OA.", magnitude: "high" },
+    { from: "funders", to: "libraries", description: "<b>Funders</b> support <b>Libraries</b> through infrastructure development funding and publishing platform grants. Smaller than the library→publisher flow but strategically important.", magnitude: "medium" },
+    { from: "funders", to: "institutions", description: "<b>Funders</b> shape <b>Research Institutions'</b> priorities through funding criteria. When funders signal open science matters, institutions eventually adapt — but with significant lag.", magnitude: "medium" },
+    { from: "funders", to: "infrastructure", description: "<b>Funders</b> fund <b>Publishing Infrastructure</b> projects, often through grants. This is the primary funding mechanism for open infrastructure, but it's project-based and precarious.", magnitude: "medium" },
+    { from: "infrastructure", to: "publishers", description: "<b>Publishing Infrastructure</b> provides <b>Publishers & Journals</b> with indexing, identifiers, metadata standards, and publishing platforms they depend on to operate.", magnitude: "high" },
+    { from: "infrastructure", to: "researchers", description: "<b>Publishing Infrastructure</b> provides <b>Researchers</b> with discoverability, persistent identifiers (ORCID, DOIs), and repository access.", magnitude: "medium" },
+    { from: "infrastructure", to: "libraries", description: "<b>Publishing Infrastructure</b> provides <b>Libraries</b> with the technical systems they use for repositories, OA monitoring, and compliance checking.", magnitude: "medium" }
   ]
 };
 
@@ -573,8 +573,7 @@ canvas.addEventListener('mousemove',(e)=>{
     const edge=getEdgeAt(mouseX,mouseY);
     hoveredEdge=edge;
     if(edge){
-      const s=DATA.nodes[edge.from],t=DATA.nodes[edge.to];
-      showTooltip(`<strong>${s.label} → ${t.label}</strong><br>${edge.description}`,e.clientX,e.clientY);
+      showTooltip(edge.description,e.clientX,e.clientY);
     }else{hideTooltip();}
   }else{hoveredEdge=null;hideTooltip();}
 });
