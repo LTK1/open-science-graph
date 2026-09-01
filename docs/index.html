@@ -508,21 +508,68 @@ function showTooltip(content,ex,ey){
 }
 function hideTooltip(){tooltipEl.classList.remove('visible');}
 
+// World-space bounding box of everything that gets drawn, at zoom z.
+// Padding is computed in screen pixels and converted to world units, because
+// label sizes are clamped in screen space and don't scale linearly with zoom.
+function contentBounds(z, selectedId) {
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  const nodeFont = Math.max(10, Math.min(14, 13 * z));
+  const subFont  = Math.max(9,  Math.min(12, 11 * z));
+
+  nodes.forEach(n => {
+    const nd = DATA.nodes[n.id];
+    ctx.font = `500 ${nodeFont}px 'DM Sans', sans-serif`;
+    const halfLabel = ctx.measureText(n.label).width / 2 / z;
+
+    let padL = Math.max(n.baseRadius, halfLabel);
+    let padR = padL;
+    let padT = n.baseRadius;
+    let padB = n.baseRadius + 10 + (nodeFont * 1.2) / z;   // label sits below
+
+    // Expanded sub-node labels reach further out than the circle itself.
+    // Use the node's SETTLED state, not its current animation frame, so the
+    // camera target is fixed the moment it's set and the ease has one
+    // destination to travel to.
+    if (n.id === selectedId && nd.subnodes && nd.subnodes.length) {
+      ctx.font = `500 ${subFont}px 'DM Sans', sans-serif`;
+      let widest = 0;
+      nd.subnodes.forEach(sn => { widest = Math.max(widest, ctx.measureText(sn.name).width); });
+      const reach = n.baseRadius * 0.55 + 8 + 12 + widest / z;
+      padL = Math.max(padL, reach); padR = Math.max(padR, reach);
+      padT = Math.max(padT, reach); padB = Math.max(padB, reach);
+    }
+
+    minX = Math.min(minX, n.wx - padL); maxX = Math.max(maxX, n.wx + padR);
+    minY = Math.min(minY, n.wy - padT); maxY = Math.max(maxY, n.wy + padB);
+  });
+  return { minX, maxX, minY, maxY };
+}
+
+// Pull the camera back inside the content on any axis where the viewport would
+// otherwise show empty space. Axes where the content already fits are left alone.
+function clampToContent(x, y, z, selectedId) {
+  const b = contentBounds(z, selectedId);
+  const visW = W - (panelOpen ? detailPanel.offsetWidth : 0);
+  const hx = visW / (2 * z), hy = H / (2 * z);
+  if (b.maxX - b.minX > 2 * hx) x = Math.min(Math.max(x, b.minX + hx), b.maxX - hx);
+  if (b.maxY - b.minY > 2 * hy) y = Math.min(Math.max(y, b.minY + hy), b.maxY - hy);
+  return { x, y };
+}
+
 function setCameraTarget(nodeId) {
   if (nodeId) {
     const n = nodes.find(nd => nd.id === nodeId);
     if (n) {
-      const half = panelOpen ? detailPanel.offsetWidth / 2 : 0;
       const usable = Math.max(120, W - (panelOpen ? detailPanel.offsetWidth : 0));
       const z = 1.8 * Math.min(1, Math.max(0.55, usable / 700));
-      camTarget.zoom = z;
-      camTarget.x = n.wx + half / z;
-      camTarget.y = n.wy;
+      // cam.x already maps to the centre of the visible (non-panel) area,
+      // because toScreen applies panOffset. No extra shift here.
+      const c = clampToContent(n.wx, n.wy, z, nodeId);
+      camTarget.zoom = z; camTarget.x = c.x; camTarget.y = c.y;
     }
   } else {
-    camTarget.x = W / 2;
-    camTarget.y = H / 2 + 10;
-    camTarget.zoom = 1;
+    const c = clampToContent(W / 2, H / 2 + 10, 1, null);
+    camTarget.x = c.x; camTarget.y = c.y; camTarget.zoom = 1;
   }
 }
 
